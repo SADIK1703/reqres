@@ -20,7 +20,6 @@ class ReqresApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
       title: 'ReqresApp',
-      
     );
   }
 }
