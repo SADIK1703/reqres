@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'core/init/dependency_injection.dart' as dependency_injector;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dependency_injector.init();
   runApp(const ReqresApp());
 }
 
@@ -29,4 +32,3 @@ class ReqresApp extends StatelessWidget {
     );
   }
 }
-
