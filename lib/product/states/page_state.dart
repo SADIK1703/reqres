@@ -69,7 +69,7 @@ mixin PageStateMixin<T> on ChangeNotifier {
               changePageState(PageState.success(await dataConverter(data)));
               await onSuccess?.call(data);
             } else {
-              Failure failure = DataTypeFailure(
+              Failure failure = CustomMessageFailure(
                 '''Data type (${data.runtimeType}) is not a subtype of $T.
                     If you want use data correctly,
                     please pass dataConverter function''',

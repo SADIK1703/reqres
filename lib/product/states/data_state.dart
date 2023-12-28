@@ -4,11 +4,11 @@ abstract class DataState<T> {
   abstract final Failure? failure;
   abstract final T? data;
 
-  factory DataState.success({required T data}) {
+  factory DataState.success(T data) {
     return SuccessDataState(data);
   }
 
-  factory DataState.error({required Failure failure}) {
+  factory DataState.error(Failure failure) {
     return ErrorDataState(failure);
   }
 

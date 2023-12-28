@@ -1,0 +1,4 @@
+enum RequestTypes {
+  get,
+  put,
+}
