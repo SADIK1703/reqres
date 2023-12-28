@@ -32,6 +32,8 @@ class ReqresApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
+      initialRoute: Routes.baseRoute.path,
+      theme: BaseTheme().theme(context),
     );
   }
 }
