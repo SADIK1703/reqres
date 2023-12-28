@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:reqres/feature/login/_login_.exports.dart';
+import 'package:reqres/feature/credential/_login_exports.dart';
 
 class LoginResponseModel extends LoginResponse {
   LoginResponseModel({
@@ -11,10 +11,6 @@ class LoginResponseModel extends LoginResponse {
   String toJson() => json.encode(toMap());
 
   factory LoginResponseModel.fromMap(final Map<String, dynamic> json) => LoginResponseModel(
-        token: json["token"],
-      );
-
-  static LoginResponseModel staticFromMap(final Map<String, dynamic> json) => LoginResponseModel(
         token: json["token"],
       );
 
