@@ -71,7 +71,7 @@ class MainRequestImpl implements BaseRequestRepository {
     if (StatusCodeEnumsExtension.isSuccess(StatusCodeEnumsExtension.statusCodeToEnum(response.statusCode))) {
       return DataState.success(response.data ?? '');
     } else {
-      return DataState.error(CustomMessageFailure(response.statusMessage ?? ''));
+      return DataState.error(CustomMessageFailure(json.decode(response.data)["error"] ?? ''));
     }
   }
 }

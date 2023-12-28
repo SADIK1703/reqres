@@ -2,14 +2,35 @@ import 'package:flutter/widgets.dart';
 import 'package:reqres/feature/credential/_login_exports.dart';
 import 'package:reqres/product/_product_exports.dart';
 
-class LoginController with ChangeNotifier {
+class LoginController extends ChangeNotifier with PageStateMixin<LoginResponse> {
+  LoginController(this._loginUsecase);
+
+  final LoginUsecase _loginUsecase;
 
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
 
-  PageState<LoginResponse> pageState = PageState.idle();
+  Future<void> login(BuildContext context) async {
+    changePageState(PageState.idle());
+    var loginDataState = await _loginUsecase(
+      LoginArgument(
+        email: emailController.text,
+        password: passwordController.text,
+      ),
+    );
 
-  
-
+    loginDataState.when(
+      success: (data) {
+        changePageState(PageState.success(data));
+        Navigator.of(context).pushReplacementNamed(Routes.listUser.path);
+        return DataState.success(data);
+      },
+      error: (error) {
+        changePageState(PageState.error(error));
+        CustomMessengerState.error.showCustomMessenger(context, error.errorMessage.content);
+        return DataState.error(error);
+      },
+    );
+  }
 }

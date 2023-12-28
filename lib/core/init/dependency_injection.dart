@@ -28,12 +28,25 @@ Future<void> init() async {
     ),
   );
 
+  dependencyInjector.registerLazySingleton<GetRequest>(
+    () => GetRequest(
+      dependencyInjector<BaseRequestRepository>(),
+    ),
+  );
+
+  dependencyInjector.registerLazySingleton<PostRequest>(
+    () => PostRequest(
+      dependencyInjector<BaseRequestRepository>(),
+    ),
+  );
+
   //! Features
   //? Root
   //* Controller
   dependencyInjector.registerFactory<RootController>(
     () => RootController(
       dependencyInjector<LocalStorageRepository>(),
+      dependencyInjector<PostRequest>(),
     ),
   );
 
@@ -54,6 +67,8 @@ Future<void> init() async {
   //? Credential
   //* Controller
   dependencyInjector.registerFactory<LoginController>(
-    () => LoginController(),
+    () => LoginController(
+      dependencyInjector<LoginUsecase>(),
+    ),
   );
 }

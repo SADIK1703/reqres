@@ -9,14 +9,16 @@ class LoginRepoImpl implements LoginRepository {
   Future<DataState<LoginResponseModel>> login(
     final LoginArgument params,
   ) async {
-    var response = await dependencyInjector<BaseRequestRepository>().baseGet(
-      requestParameters: params.toMap(),
+    var response = await dependencyInjector<BaseRequestRepository>().basePost(
+      requestBody: params.toMap(),
       endPoint: Endpoints.login,
     );
     return response.when<LoginResponseModel>(
       success: (data) {
-        _localStorageRepository.saveData<UserDataModel>(LocalStorageKeys.userData, UserDataModel.fromJson(data));
-        return DataState.success(LoginResponseModel.fromJson(data));
+        final LoginResponseModel responseModel = LoginResponseModel.fromJson(response.data!);
+        final UserDataModel cacheData = UserDataModel(email: params.email, password: params.password);
+        _localStorageRepository.saveData(LocalStorageKeys.userData, cacheData.toJson());
+        return DataState.success(responseModel);
       },
       error: (error) {
         _localStorageRepository.removeData(LocalStorageKeys.userData);
