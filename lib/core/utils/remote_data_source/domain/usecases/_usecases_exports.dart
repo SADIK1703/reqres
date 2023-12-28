@@ -1,2 +1,2 @@
-export 'main_base_post.dart';
-export 'main_base_get.dart';
+export 'get_request_usecase.dart';
+export 'post_request_usecase.dart';

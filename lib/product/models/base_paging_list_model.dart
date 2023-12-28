@@ -15,23 +15,24 @@ class BasePagingListModel<T> {
     required this.items,
   });
 
-  factory BasePagingListModel.fromJson(final String str, final Function(Map<String, dynamic>) mappingFunction) =>
+  factory BasePagingListModel.fromJson(final String str, final T Function(Map<String, dynamic>) mappingFunction) =>
       BasePagingListModel.fromMap(json.decode(str), mappingFunction);
 
   factory BasePagingListModel.fromMap(
     final Map<String, dynamic> json,
-    final Function(Map<String, dynamic>) mappingFunction,
+    final T Function(Map<String, dynamic>) mappingFunction,
   ) {
-    return BasePagingListModel(
-      pageCount: json["pageCount"],
+    return BasePagingListModel<T>(
+      pageCount: json["page"],
       itemPerPage: json["per_page"],
       totalItem: json["total"],
       totalPageCount: json["total_pages"],
-      items: List.from(json["items"].map(mappingFunction)),
+      items:
+          List<T>.from((json["data"] as List<dynamic>).map((e) => mappingFunction(e as Map<String, dynamic>))).toList(),
     );
   }
 
-  BasePagingListModel<T> parseListModel(final Function(Map<String, dynamic>) mappingFunction) {
+  BasePagingListModel<T> parseListModel(final T Function(Map<String, dynamic>) mappingFunction) {
     return BasePagingListModel<T>(
       pageCount: pageCount,
       itemPerPage: itemPerPage,

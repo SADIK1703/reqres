@@ -3,9 +3,9 @@ import 'package:reqres/feature/credential/_login_exports.dart';
 import 'package:reqres/product/_product_exports.dart';
 
 class LoginController extends ChangeNotifier with PageStateMixin<LoginResponse> {
-  LoginController(this._loginUsecase);
+  LoginController(this._registerUsecase);
 
-  final LoginUsecase _loginUsecase;
+  final RegisterUsecase _registerUsecase;
 
   TextEditingController emailController = TextEditingController();
 
@@ -13,7 +13,7 @@ class LoginController extends ChangeNotifier with PageStateMixin<LoginResponse> 
 
   Future<void> login(BuildContext context) async {
     changePageState(PageState.idle());
-    var loginDataState = await _loginUsecase(
+    var loginDataState = await _registerUsecase(
       LoginArgument(
         email: emailController.text,
         password: passwordController.text,

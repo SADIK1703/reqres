@@ -1,5 +1,6 @@
 enum Endpoints {
   login('/api/login'),
+  register('/api/register'),
   listUsers('/api/users'),
   ;
 

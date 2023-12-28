@@ -4,13 +4,15 @@ import 'package:reqres/feature/credential/_login_exports.dart';
 import 'package:reqres/product/_product_exports.dart';
 
 class RootController extends ChangeNotifier {
-  RootController(this._localStorageRepository, this._postRequest);
+  RootController(this._postRequest, this._getCachedDataUsecase);
 
-  final LocalStorageRepository _localStorageRepository;
-  final PostRequest _postRequest;
+  final GetCachedDataUsecase _getCachedDataUsecase;
+  final PostRequestUsecase _postRequest;
 
   Future<DataState<Routes>> onInit() async {
-    var userDataState = await _localStorageRepository.getData(LocalStorageKeys.userData);
+    var userDataState = await _getCachedDataUsecase(
+      GetCachedDataParam(LocalStorageKeys.userData),
+    );
 
     return userDataState.when<Routes>(
       success: (data) async {
@@ -22,15 +24,13 @@ class RootController extends ChangeNotifier {
           ),
         );
 
-        loginResponse.when(
+        return loginResponse.when(
           success: (p0) => DataState.success(Routes.listUser),
-          error: (p0) => DataState.success(Routes.login),
+          error: (p0) => DataState.success(Routes.listUser),
         );
-
-        return DataState.success(Routes.listUser);
       },
       error: (error) {
-        return DataState.success(Routes.login);
+        return DataState.success(Routes.listUser);
       },
     );
   }

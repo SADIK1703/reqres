@@ -15,7 +15,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(route: Routes.login),
+      appBar: CustomAppBar(route: Routes.register),
       body: Padding(
         padding: EdgeInsets.only(
           left: 12,
@@ -41,7 +41,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
               },
               child: const SizedBox(width: double.infinity, child: Center(child: Text('Login'))),
             ),
-            const Spacer(flex: 2),
+            const Spacer(),
           ],
         ),
       ),

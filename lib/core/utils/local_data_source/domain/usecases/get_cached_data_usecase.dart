@@ -1,10 +1,10 @@
 import 'package:reqres/core/_core_exports.dart';
 import 'package:reqres/product/_product_exports.dart';
 
-class GetCachedData implements Usecase<String, GetCachedDataParam> {
+class GetCachedDataUsecase implements Usecase<String, GetCachedDataParam> {
   LocalStorageRepository repository;
 
-  GetCachedData(this.repository);
+  GetCachedDataUsecase(this.repository);
 
   @override
   Future<DataState<String>> call(final GetCachedDataParam params) async {
