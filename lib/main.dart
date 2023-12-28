@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reqres/product/router/routes.dart';
 import 'core/init/dependency_injection.dart' as dependency_injector;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dependency_injector.init();
-  runApp(const ReqresApp());
+  runApp(const ProviderScope(child: ReqresApp()));
 }
 
 class ReqresApp extends StatelessWidget {
@@ -24,6 +26,7 @@ class ReqresApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
       title: 'ReqresApp',
+      routes: RouteHelper.routeReceiver(),
       theme: ThemeData(
         textTheme: GoogleFonts.interTextTheme(
           Theme.of(context).textTheme,
