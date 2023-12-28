@@ -26,11 +26,11 @@ class RootController extends ChangeNotifier {
 
         return loginResponse.when(
           success: (p0) => DataState.success(Routes.listUser),
-          error: (p0) => DataState.success(Routes.listUser),
+          error: (p0) => DataState.success(Routes.register),
         );
       },
       error: (error) {
-        return DataState.success(Routes.listUser);
+        return DataState.success(Routes.register);
       },
     );
   }

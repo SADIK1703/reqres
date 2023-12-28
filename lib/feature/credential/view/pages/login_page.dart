@@ -31,9 +31,15 @@ class LoginPageState extends ConsumerState<LoginPage> {
               style: Theme.of(context).textTheme.displayLarge,
             ),
             const Spacer(),
-            const AppTextFormField(hintText: 'Email'),
+            AppTextFormField(
+              hintText: 'Email',
+              controller: dependencyInjector<LoginController>().emailController,
+            ),
             const SizedBox(height: 8),
-            const AppTextFormField(hintText: 'Password'),
+            AppTextFormField(
+              hintText: 'Password',
+              controller: dependencyInjector<LoginController>().passwordController,
+            ),
             const Spacer(flex: 3),
             ElevatedButton(
               onPressed: () {
