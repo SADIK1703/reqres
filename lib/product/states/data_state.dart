@@ -52,7 +52,6 @@ class ErrorDataState<T> implements DataState<T> {
     FutureOr<DataState<K>> Function(T)? success,
     FutureOr<DataState<K>> Function(Failure)? error,
   }) {
-    error?.call(failure);
-    return DataState<K>.error(failure);
+    return error!.call(failure);
   }
 }
