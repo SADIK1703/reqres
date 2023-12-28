@@ -21,7 +21,7 @@ class RootPageState extends ConsumerState<RootPage> {
       (final _) async {
         final DataState<Routes> dataState = await dependencyInjector<RootController>().onInit();
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacementNamed(dataState.data!.name);
+        Navigator.of(context).pushReplacementNamed(dataState.data!.path);
       },
     );
     super.initState();
