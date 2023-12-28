@@ -8,14 +8,13 @@ class SecureStorageRepositoryImpl implements LocalStorageRepository {
   SecureStorageRepositoryImpl(this.secureStorage);
 
   @override
-  Future<DataState<T>> getData<T extends LocalStorageModel>(
+  Future<DataState<String>> getData(
     final LocalStorageKeys key,
-    final T Function(String) fromJson,
   ) async {
     try {
       final String? value = await secureStorage.read(key: key.name);
-      if (value != null) {
-        return DataState.success(fromJson(value));
+      if (value?.isNotEmpty ?? false) {
+        return DataState.success(value!);
       } else {
         return DataState.error(UnableToGetCachedDataFailure());
       }
@@ -35,9 +34,9 @@ class SecureStorageRepositoryImpl implements LocalStorageRepository {
   }
 
   @override
-  Future<DataState<bool>> saveData<T extends LocalStorageModel>(final LocalStorageKeys key, final T data) async {
+  Future<DataState<bool>> saveData(final LocalStorageKeys key, final String data) async {
     try {
-      await secureStorage.write(key: key.name, value: data.toJson());
+      await secureStorage.write(key: key.name, value: data);
       return DataState.success(true);
     } catch (e) {
       return DataState.error(UnableToCacheDataFailure());
