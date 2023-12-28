@@ -5,7 +5,9 @@ import 'package:reqres/core/_core_exports.dart';
 import 'package:reqres/product/_product_exports.dart';
 
 class MainRequestImpl implements BaseRequestRepository {
-  MainRequestImpl();
+  MainRequestImpl(this._dio);
+
+  final Dio _dio;
 
   @override
   Future<DataState<String>> baseGet({
@@ -14,12 +16,13 @@ class MainRequestImpl implements BaseRequestRepository {
   }) async {
     return _errorHandler(
       () {
-        return dependencyInjector<Dio>().get(
+        return _dio.get(
           endPoint.path,
           queryParameters: requestParameters,
           options: Options(
             responseType: ResponseType.plain,
             contentType: "application/json",
+            method: "GET",
             validateStatus: (final int? statusCode) => true,
           ),
         );
@@ -34,7 +37,7 @@ class MainRequestImpl implements BaseRequestRepository {
   }) async {
     return _errorHandler(
       () async {
-        return dependencyInjector<Dio>().post(
+        return _dio.post(
           endPoint.path,
           data: jsonEncode(requestBody),
           options: Options(

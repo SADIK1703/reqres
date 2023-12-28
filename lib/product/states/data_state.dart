@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:reqres/product/_product_exports.dart';
 
 abstract class DataState<T> {
@@ -12,7 +14,10 @@ abstract class DataState<T> {
     return ErrorDataState(failure);
   }
 
-  void when({void Function(T)? success, void Function(Failure)? error});
+  FutureOr<DataState<K>> when<K>({
+    FutureOr<DataState<K>> Function(T)? success,
+    FutureOr<DataState<K>> Function(Failure)? error,
+  });
 }
 
 class SuccessDataState<T> implements DataState<T> {
@@ -25,8 +30,11 @@ class SuccessDataState<T> implements DataState<T> {
   SuccessDataState(this.data);
 
   @override
-  void when({void Function(T)? success, void Function(Failure)? error}) {
-    success?.call(data);
+  FutureOr<DataState<K>> when<K>({
+    FutureOr<DataState<K>> Function(T)? success,
+    FutureOr<DataState<K>> Function(Failure)? error,
+  }) {
+    return success!.call(data);
   }
 }
 
@@ -40,7 +48,11 @@ class ErrorDataState<T> implements DataState<T> {
   ErrorDataState(this.failure);
 
   @override
-  void when({void Function(T)? success, void Function(Failure)? error}) {
+  FutureOr<DataState<K>> when<K>({
+    FutureOr<DataState<K>> Function(T)? success,
+    FutureOr<DataState<K>> Function(Failure)? error,
+  }) {
     error?.call(failure);
+    return DataState<K>.error(failure);
   }
 }

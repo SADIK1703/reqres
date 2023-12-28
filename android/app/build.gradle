@@ -17,6 +17,16 @@ if (flutterVersionCode == null) {
     flutterVersionCode = '1'
 }
 
+def minSdkVersion = localProperties.getProperty('flutter.minSdkVersion')
+if (minSdkVersion == null) {
+    minSdkVersion = '18'
+}
+
+def targetSdkVersion = localProperties.getProperty('flutter.targetSdkVersion')
+if (targetSdkVersion == null) {
+    targetSdkVersion = '31'
+}
+
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
@@ -45,7 +55,7 @@ android {
         applicationId "com.example.reqres"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion flutter.minSdkVersion.toInteger()
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

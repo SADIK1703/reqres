@@ -8,6 +8,9 @@ class ErrorMessages {
         'Something went wrong!',
         extraContent: 'Please check your internet connection.',
       );
+  factory ErrorMessages.unableToGetCachedData() => const ErrorMessages('Unable to Get Cached Data!');
+  factory ErrorMessages.unableToRemoveDataFromCache() => const ErrorMessages('Unable to Remove Data From Cache!');
+  factory ErrorMessages.unableToCacheData() => const ErrorMessages('Unable to Cache Data!');
 
   final String content;
   final String? extraContent;

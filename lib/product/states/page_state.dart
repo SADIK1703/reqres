@@ -55,6 +55,7 @@ mixin PageStateMixin<T> on ChangeNotifier {
       error: (Failure failure) async {
         changePageState(PageState.error(failure));
         await onError?.call(failure);
+        return DataState.error(failure);
       },
       success: (K data) async {
         final Failure? dataValidateError = await dataValidator?.call(data);
@@ -82,6 +83,7 @@ mixin PageStateMixin<T> on ChangeNotifier {
             await onSuccess?.call(data);
           }
         }
+        return DataState.success(data);
       },
     );
   }
